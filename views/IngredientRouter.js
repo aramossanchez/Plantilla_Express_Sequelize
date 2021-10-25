@@ -9,7 +9,6 @@ router.get('/', IngredientController.getAll);
 router.get('/:id', IngredientController.getById);
 router.post('/', IngredientController.create);
 router.put('/:id', IngredientController.update);
-// router.delete('/', IngredientController.deleteAll);
-// router.delete('/:id', IngredientController.delete);
+router.delete('/:id', IngredientController.delete);
 
 module.exports = router;

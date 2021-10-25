@@ -97,68 +97,30 @@ IngredientController.update = (req, res) => {
       });
   };
 
+//-------------------------------------------------------------------------------------
 
-// //-------------------------------------------------------------------------------------
-// //GET categories by Type from database  
-// //FindByType
-// IngredientController.getByType = (req, res) => {
-//     ingredients.findAll({ where: { type: req.params.type } })
-//       .then(data => {
-//         res.send(data);
-//       })
-//       .catch(err => {
-//         res.status(500).send({
-//           message:
-//             err.message || "Some error occurred while retrieving categories."
-//         });
-//       });
-//   };
-
-
-// //-------------------------------------------------------------------------------------
-// //DELETE a ingredients by Id from database
-// IngredientController.delete = (req, res) => {
-//     const id = req.params.id;
+IngredientController.delete = (req, res) => {
+    const id = req.params.id;
   
-//     ingredients.destroy({
-//       where: { id: id }
-//     })
-//       .then(num => {
-//         if (num == 1) {
-//           res.send({
-//             message: "ingredients was deleted successfully!"
-//           });
-//         } else {
-//           res.send({
-//             message: `Cannot delete ingredients with id=${id}. Maybe Movie was not found!`
-//           });
-//         }
-//       })
-//       .catch(err => {
-//         res.status(500).send({
-//           message: "Could not delete ingredients with id=" + id
-//         });
-//       });
-//   };
-
-
-// //-------------------------------------------------------------------------------------
-// //DELETE all categories from database
-// //delete all categories   
-// IngredientController.deleteAll = (req, res) => {
-//     ingredients.destroy({
-//       where: {},
-//       truncate: false
-//     })
-//       .then(nums => {
-//         res.send({ message: `${nums} categories were deleted successfully!` });
-//       })
-//       .catch(err => {
-//         res.status(500).send({
-//           message:
-//             err.message || "Some error occurred while removing all categories."
-//         });
-//       });
-//   };
+    ingredients.destroy({
+      where: { id: id }
+    })
+      .then(num => {
+        if (num == 1) {
+          res.send({
+            message: "¡El ingrediente ha sido eliminado correctamente!"
+          });
+        } else {
+          res.send({
+            message: `No se ha podido eliminar el registro con el id ${id}.`
+          });
+        }
+      })
+      .catch(err => {
+        res.status(500).send({
+          message: "Ha surgido algún error al intentar borrar el ingrediente " + id + "."
+        });
+      });
+  };
 
 module.exports = IngredientController;
