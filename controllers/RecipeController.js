@@ -1,52 +1,52 @@
 //IMPORTAMOS BASE DE DATOS
 const db = require("../models");
-const ingredients = db.ingredient;
+const recipes = db.recipe;
 const Op = db.Sequelize.Op; //IMPORTAMOS FUNCIONES ORM DE SEQUELIZE
 
-const IngredientController = {}; //CREAMOS EL OBJETO CONTROLADOR
+const RecipeController = {}; //CREAMOS EL OBJETO CONTROLADOR
 
 
 
 //CRUD
-IngredientController.getAll = (req, res) => {
+RecipeController.getAll = (req, res) => {
   
-    ingredients.findAll()
+    recipes.findAll()
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Ha surgido algún error al intentar acceder a los ingredientes."
+            err.message || "Ha surgido algún error al intentar acceder a las recetas."
         });
       });
   };
 
 //-------------------------------------------------------------------------------------
 
-IngredientController.getById = (req, res) => {
+RecipeController.getById = (req, res) => {
     const id = req.params.id;
   
-    ingredients.findByPk(id)
+    recipes.findByPk(id)
       .then(data => {
         if (data) {
           res.send(data);
         } else {
           res.status(404).send({
-            message: `No existe el ingrediente con el id ${id}.`
+            message: `No existe la receta con el id ${id}.`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Ha surgido algún error al intentar acceder al ingrediente con el id " + id + "."
+          message: "Ha surgido algún error al intentar acceder a la receta con el id " + id + "."
         });
       });
   };
 
 //-------------------------------------------------------------------------------------
 
-IngredientController.create = (req, res) => {
+RecipeController.create = (req, res) => {
 
     if (!req.body.nombre) {
       res.status(400).send({
@@ -55,60 +55,61 @@ IngredientController.create = (req, res) => {
       return;
     }
 
-    const newIngredient = {
+    const newRecipe = {
         nombre: req.body.nombre,
+        descripcion: req.body.descripcion,
     };
 
-    ingredients.create(newIngredient)
+    recipes.create(newRecipe)
       .then(data => {
         res.send(data);
       })
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Ha surgido algún error al intentar añadir un nuevo ingrediente."
+            err.message || "Ha surgido algún error al intentar añadir una nueva receta."
         });
       });
   };
 
 //-------------------------------------------------------------------------------------
 
-IngredientController.update = (req, res) => {
+RecipeController.update = (req, res) => {
     const id = req.params.id;
   
-    ingredients.update(req.body, {
+    recipes.update(req.body, {
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: `El ingrediente con id ${id} ha sido actualizado correctamente.`
+            message: `La receta con id ${id} ha sido actualizado correctamente.`
           });
         } else {
           res.send({
-            message: `No se pudo actualizar el ingrediente ${id}`
+            message: `No se pudo actualizar la receta ${id}`
           });
         }
       })
       .catch(err => {
         res.status(500).send({
-          message: "Ha surgido algún error al intentar actualizar el ingrediente " + id + "."
+          message: "Ha surgido algún error al intentar actualizar la receta " + id + "."
         });
       });
   };
 
 //-------------------------------------------------------------------------------------
 
-IngredientController.delete = (req, res) => {
+RecipeController.delete = (req, res) => {
     const id = req.params.id;
   
-    ingredients.destroy({
+    recipes.destroy({
       where: { id: id }
     })
       .then(num => {
         if (num == 1) {
           res.send({
-            message: "¡El ingrediente ha sido eliminado correctamente!"
+            message: "¡La receta ha sido eliminada correctamente!"
           });
         } else {
           res.send({
@@ -118,9 +119,9 @@ IngredientController.delete = (req, res) => {
       })
       .catch(err => {
         res.status(500).send({
-          message: "Ha surgido algún error al intentar borrar el ingrediente " + id + "."
+          message: "Ha surgido algún error al intentar borrar la receta " + id + "."
         });
       });
   };
 
-module.exports = IngredientController;
+module.exports = RecipeController;

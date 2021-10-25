@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     descripcion: DataTypes.STRING
   }, {
     sequelize,
+    timestamps: false,
     modelName: 'recipe',
   });
   return recipe;

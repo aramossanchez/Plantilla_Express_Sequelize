@@ -4,7 +4,7 @@ const {
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class ingredient extends Model {
-     static associate(models) {
+    static associate(models) {
       this.hasMany(models.contain, {
         foreignKey: 'ingredientId'
       });
