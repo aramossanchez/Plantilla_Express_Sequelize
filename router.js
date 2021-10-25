@@ -8,6 +8,6 @@ const ContainRouter = require('./views/ContainRouter');
 //Rutas
 router.use('/ingredients', IngredientRouter);
 router.use('/recipes', RecipeRouter);
-// router.use('/contains', ContainRouter);
+router.use('/contains', ContainRouter);
 
 module.exports = router;

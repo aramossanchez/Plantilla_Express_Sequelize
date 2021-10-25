@@ -14,9 +14,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   contain.init({
-    cantidad: DataTypes.STRING
+    cantidad: DataTypes.STRING,
+    ingredientId: DataTypes.INTEGER,
+    recipeId: DataTypes.INTEGER
   }, {
     sequelize,
+    timestamps: false,
     modelName: 'contain',
   });
   return contain;
